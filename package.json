@@ -1,0 +1,7 @@
+{
+  "name": "galleryBox",
+  "version": "1.2.3",
+  "browser": {
+    "./gallery": "src/galleryBox.vue"
+  },
+}

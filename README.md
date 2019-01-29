@@ -12,6 +12,7 @@ npm i vue-gallerybox
 ## Usage
 
 How to use:
+data it's array of images, col it's number od col-md-x
 ```html
  <gallery v-bind:data="clearData(data)" v-bind:col="4"/>
 ```

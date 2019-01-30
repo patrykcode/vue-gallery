@@ -1,7 +1,21 @@
 {
-  "name": "galleryBox",
-  "version": "1.2.3",
-  "browser": {
-    "./gallery": "src/galleryBox.vue"
+  "name": "vue-gallerybox",
+  "version": "1.0.0",
+  "description": "A Vue.js component that displays a gallery.",
+  "main": "src/galleryBox.vue",
+  "scripts": {
+    "build": "rimraf ./dist && webpack --config ./webpack.config.js"
   },
+  "homepage": "https://github.com/patrykcode/vue-gallery.git",
+  "author": "Patryk Pawlicki",
+  "license": "MIT",
+  "dependencies": {
+    "moment": "^1.0.0"
+  },
+  "repository": { "type": "git",
+    "url": "git+https://github.com/patrykcode/vue-gallery"},
+  "devDependencies": { 
+	
+	}
 }
+  

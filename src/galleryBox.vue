@@ -2,10 +2,10 @@
     <div class="gallery-box row" v-if="data.images" >
         <div v-bind:class="classAdd()" v-for="image,index in data.images" v-bind:key="index">
             <a v-bind:href="image.img" v-on:click="popup(index,$event)">
-                <img v-bind:src="crop(image)" alt="" class="img-fluid">
+                <img v-bind:src="image.thumb" alt="" class="img-fluid">
                 <div class="my-3" v-html="image.description"></div>
             </a>
-        </div>
+        </div> 
         <div class="popup" v-if="showPopup" v-on:click.self="closePop($event)">
             <div class="popup-img" v-if="imagePopup.img">
                 <button class="navPop prev" v-on:click="prev">
@@ -22,7 +22,7 @@
                     </div>
                     <div class=""><img v-bind:src="imagePopup.img" alt=""></div>
                     <div class="desc-box" v-if="imagePopup.description" v-html="imagePopup.description"></div>
-                    <div class="index-nr"><span class="">{{imagePopup.index+1 +' / '+counter}}</span></div>
+                    <div class="index-nr"><span class="">{{imagePopup.index + 1 + ' / ' + counter}}</span></div>
                 </div>
             </div>
             <div class="popup-thumbs">
@@ -34,11 +34,11 @@
                 </button>
                 <div class="popupThumbs" 
                      v-for="image,index in data.images" 
-                     v-bind:style="{'background-image': 'url(/'+crop(image)+')'}"
+                     v-bind:style="{'background-image': 'url(/'+image.thumb+')'}"
                      v-on:click="popup(index,$event)"
                      v-bind:class="{'active':index==imagePopup.index}"
                      v-if="thumb(index)"
-                     >
+                     > 
 
                 </div>
             </div>
@@ -50,82 +50,71 @@
 
 
     export default {
-	name: 'gallery',
-	props: ['data', 'col'],
-	data() {
-	    return {
-		column: 'col-md-' + this.col,
-		showPopup: false,
-		imagePopup: {
-		    index: null,
-		    img: null,
-		    description: null,
-		    link: null,
-		},
-		counter: this.data.images.length,
-	    }
-	},
-	methods: {
-	    classAdd() {
-		return this.column;
-	    },
-	    crop(image) {
-		return image.img.replace('.', '_crop.');
-	    },
-	    linkProps(data) {
-		var $url = data.url == '' || data.url == null ? data.slug : data.url;
-		if ($url.match(/^(http(s)?|ftp):\/\//)) {
-		    return {
-			is: 'a',
-			href: $url,
-			target: '_blank',
-		    }
-		}
-		return {
-		    is: 'router-link',
-		    to: $url,
-		}
-	    },
-	    popup(id = 0, e = null) {
-		if (e) {
-		    e.preventDefault();
-		}
-		this.showPopup = true;
-		this.imagePopup = {
-		    index: id,
-		    img: this.crop(this.data.images[id]),
-		    description: this.data.images[id].description,
-		    link: this.data.images[id].link,
-		};
-	    },
-	    prev() {
-		var curentIndex = this.imagePopup.index - 1;
-		var index = curentIndex < 0 ? this.data.images.length - 1 : curentIndex;
-		if (this.data.images[index] !== undefined) {
-		    this.popup(index)
-		}
-	    },
-	    next() {
-		var curentIndex = this.imagePopup.index + 1;
-		var index = curentIndex > this.data.images.length - 1 ? 0 : curentIndex;
-		if (this.data.images[index] !== undefined) {
-		    this.popup(index)
-		}
-	    },
-	    thumb(index) {
-		return index >= this.imagePopup.index - 3 &&
-			index <= this.imagePopup.index + 3
-	    },
-	    closePop(e) {
-		e.stopPropagation();
-		this.showPopup = false;
-	    }
-	}
+        name: 'gallery',
+        props: ['data', 'column'],
+        data() {
+            return {
+                showPopup: false,
+                imagePopup: {
+                    index: null,
+                    thumb: null,
+                    img: null,
+                    description: null,
+                    link: null,
+                },
+                counter: this.data.images.length,
+            }
+        },
+        methods: {
+            classAdd() {
+                return this.column;
+            },
+            popup(id = 0, e = null) {
+                if (e) {
+                    e.preventDefault();
+                }
+                this.showPopup = true;
+                var thumb = this.data.images[id].thumb ? this.data.images[id].thumb : null;
+                var img = this.data.images[id].img ? this.data.images[id].img : null;
+                var description = this.data.images[id].description ? this.data.images[id].description : null;
+                var link = this.data.images[id].link ? this.data.images[id].link : null;
+
+                this.imagePopup = {
+                    index: id,
+                    thumb: thumb,
+                    img: img,
+                    description: description,
+                    link: link,
+                };
+            },
+            prev() {
+                var curentIndex = this.imagePopup.index - 1;
+                var index = curentIndex < 0 ? this.data.images.length - 1 : curentIndex;
+                if (this.data.images[index] !== undefined) {
+                    this.popup(index)
+                }
+            },
+            next() {
+                var curentIndex = this.imagePopup.index + 1;
+                var index = curentIndex > this.data.images.length - 1 ? 0 : curentIndex;
+                if (this.data.images[index] !== undefined) {
+                    this.popup(index)
+                }
+            },
+            thumb(index) {
+                return index >= this.imagePopup.index - 3 &&
+                        index <= this.imagePopup.index + 3
+            },
+            closePop(e) {
+                e.stopPropagation();
+                this.showPopup = false;
+            }
+        }
     }
 </script>
 <style scrope>
     .popup *{
-       -webkit-transition: all .5s;
+        -webkit-transition: all .5s;
         -o-transition: all .5s;
         transition: all .5s  ;   
     }
@@ -192,7 +181,7 @@
         top: 20%;
     }
     .popup-img img{
-        max-width:100%;
+        max-width:90vw;
     }
     .navPop{
         position: fixed;

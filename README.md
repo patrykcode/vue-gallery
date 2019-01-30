@@ -12,9 +12,9 @@ npm i vue-gallerybox
 ## Usage
 
 How to use:
-data it's array of images, col it's number od col-md-x
+data it's array of images, col it's class bootstrap np: col-md-4
 ```html
- <gallery v-bind:data="clearData(data)" v-bind:col="4"/>
+ <gallery v-bind:data="clearData(data)" v-bind:column="'col-md-4'"/>
 ```
 
 `images` has the structure:
@@ -27,6 +27,9 @@ data it's array of images, col it's number od col-md-x
 	    'gallery': Gallery
 	},
 	methods: {
+            crop(image) {
+		return image.img.replace('.', '_crop.');                //crop-thumbs
+	    },
 	    clearData(data) {
 		
 		var $data = [];
@@ -34,9 +37,9 @@ data it's array of images, col it's number od col-md-x
                     var items = data.images;
 		    for (var i in items) {
 			var obj = {
-			    img: items[i].img,//image src
-			    description: items[i].desc_one.description, // description
-			    link: items[i].desc_one.link,//link
+			    thumb: this.crop(items[i]),                 //thumb src
+			    img: items[i].img,                          //image src
+			    description: items[i].desc_one.description, //description
 			}
 			$data.push(obj);
 		    }

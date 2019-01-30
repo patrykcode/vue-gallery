@@ -183,6 +183,7 @@
     }
     .popup-img img{
         max-width:90vw;
+        max-height: calc(100vh - 260px);
     }
     .navPop{
         position: fixed;

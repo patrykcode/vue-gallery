@@ -1,6 +1,6 @@
 {
   "name": "vue-gallerybox",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Vue.js component that displays a gallery.",
   "main": "src/galleryBox.vue",
   "scripts": {
@@ -10,7 +10,7 @@
   "author": "PatrykCode",
   "license": "MIT",
   "dependencies": {
-    "moment": "^1.0.2"
+    "moment": "^1.0.3"
   },
   "repository": { "type": "git",
     "url": "git+https://github.com/patrykcode/vue-gallery"},

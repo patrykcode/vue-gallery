@@ -153,7 +153,7 @@
         margin: 10px;
         background-position: center;
         border-radius: 4px;
-        background-size: 100px 100px;
+        background-size: auto 100px;
     }
     .popupThumbs.active{
         border:2px solid #fff;
@@ -178,7 +178,8 @@
         text-align: left;
     }
     .popup-img{
-        top: 20%;
+        top: 50%;
+        transform: translateY(-50%);
     }
     .popup-img img{
         max-width:90vw;
@@ -239,6 +240,17 @@
         }
         .navPop.prev {
             left: 0;
+        }
+        .popup-thumbs {
+            max-width: 100%;
+            height: 70px;
+            padding: 0px 40px;
+        }
+        .popupThumbs {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            background-size: auto 50px;
         }
     }
 </style>

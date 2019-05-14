@@ -1,9 +1,9 @@
 <template>
     <div class="gallery-box row" v-if="data.images" >
-        <div v-bind:class="classAdd()" v-for="image,index in data.images" v-bind:key="index">
+        <div v-bind:class="classAdd()" v-for="image,index in data.images" v-bind:key="index" class="my-2">
             <a v-bind:href="image.img" v-on:click="popup(index,$event)">
                 <img v-bind:src="image.thumb" alt="" class="img-fluid">
-                <div class="my-3" v-html="image.description"></div>
+                <div v-if="image.description" class="my-3" v-html="image.description"></div>
             </a>
         </div> 
         <div class="popup" v-if="showPopup" v-on:click.self="closePop($event)">
@@ -34,7 +34,7 @@
                 </button>
                 <div class="popupThumbs" 
                      v-for="image,index in data.images" 
-                     v-bind:style="{'background-image': 'url(/'+image.thumb+')'}"
+                     v-bind:style="{'background-image': 'url('+image.thumb+')'}"
                      v-on:click="popup(index,$event)"
                      v-bind:class="{'active':index==imagePopup.index}"
                      v-if="thumb(index)"
@@ -51,7 +51,7 @@
 
     export default {
         name: 'gallery',
-        props: ['data', 'column'],
+        props: ['data', 'column','autopopup'],
         data() {
             return {
                 showPopup: false,
@@ -62,9 +62,15 @@
                     description: null,
                     link: null,
                 },
-                counter: this.data.images.length,
+                counter: this.data.images.length !== undefined?this.data.images.length:0,
             }
         },
+		created(){
+			if(this.autopopup){
+				console.log('auto')
+				this.popup(0)
+			}
+		},
         methods: {
             classAdd() {
                 return this.column;
